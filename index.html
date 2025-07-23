@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+
+<body>
+    <h1>this is heading</h1>
+    <button onclick="alertFunction()">alert box</button>
+    <button onclick="promptFunction()">prompt</button>
+    <p id="demo"></p>
+    <button onclick="confirmFunction()">confirm</button>
+    <p id="condemo"></p>
+    <button onclick="displayCars()">displayCars</button>
+    <p id="cars"></p>
+    <button onclick="displayCarsForin()">displayCars</button>
+    <p id="carsforin"></p>
+    <button onclick="displayCarsForof()">displayCars</button>
+    <p id="carsforof"></p>
+    <button onclick="displaynum()">numbers</button>
+    <p id="num"></p>
+    <script>
+        function alertFunction() {
+            alert("I am a alert");
+        }
+        function promptFunction(){
+            let text;
+            let person=prompt("please enter you name")
+            if(person==null || person==""){
+                text="userr cancelled the prompt";
+            }else{
+                text="Hello "+ person + "! how are you?";
+            }
+            document.getElementById("demo").innerHTML=text;
+        }
+        function confirmFunction(){
+            let text;
+            if(confirm("press a button")){
+                text="you pressed ok";
+            }else{
+                text="you pressed cancel";
+            }
+            document.getElementById("condemo").innerHTML=text;
+        }
+        function displayCars(){
+            const cars=["BMW","VOLVO","HONDA","SCODA"];
+            let text;
+            for(let i=0;i<cars.length;i++){
+                text+=cars[i]+"<br>";
+            }
+            document.getElementById("cars").innerHTML=text;
+        }
+        function displayCarsForin(){
+            const cars=["BMW","VOLVO","HONDA","SCODA"];
+            let text="";
+            for(let x in cars){
+                text+=cars[x]+"<br>";
+            }
+            document.getElementById("carsforin").innerHTML=text;
+        }
+        function displayCarsForof(){
+            const cars=["BMW","VOLVO","HONDA","SCODA"];
+            let text="";
+            for(let x of cars){
+                text+=x+"<br>";
+            }
+            document.getElementById("carsforof").innerHTML=text;
+        }
+        function displaynum(){
+            let text="";
+            let i=0;
+            while(i<10){
+                text+="<br> the number is " + i;
+                i++;
+            }
+            document.getElementById("num").innerHTML=text;
+        }
+    </script>
+</body>
+</html>
