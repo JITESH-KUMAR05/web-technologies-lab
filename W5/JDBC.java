@@ -67,3 +67,6 @@ public class JDBC {
         }
     }
 }
+// To Compile and run
+// javac -cp ".;mysql-connector-j-9.4.0.jar" JDBC.java
+// java -cp ".;mysql-connector-j-9.4.0.jar" JDBC  
