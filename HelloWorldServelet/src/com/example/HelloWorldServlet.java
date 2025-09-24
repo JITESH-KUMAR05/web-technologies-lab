@@ -14,3 +14,8 @@ public class HelloWorldServlet extends HttpServlet {
         out.println("<h1>chalo</h1>");
     }
 }
+
+
+// compiled with 
+// PS C:\Program Files\Apache Software Foundation> javac -d "C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps\MyWebApp\WEB-INF\classes" "C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps\MyWebApp\src\com\example\HelloWorldServlet.java"
+// PS C:\Program Files\Apache Software Foundation> 
