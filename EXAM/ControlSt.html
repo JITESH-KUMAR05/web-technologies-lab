@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Control Structures & Conditionals Demo</title>
+    <style>
+        body { font-family: system-ui,Segoe UI,Roboto,Arial; max-width:900px; margin:24px auto; padding:0 16px; color:#111; }
+        h1 { margin-bottom:4px; }
+        section { border:1px solid #ddd; padding:12px; margin:12px 0; border-radius:6px; background:#fafafa; }
+        pre { background:#222; color:#eee; padding:10px; border-radius:6px; overflow:auto; }
+        .row { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+        input, select, button { padding:6px 8px; }
+        .out { white-space:pre-wrap; background:#fff; border:1px solid #eee; padding:8px; margin-top:8px; border-radius:4px; min-height:28px; }
+    </style>
+</head>
+<body>
+    <h1>Control Structures & Conditional Statements (HTML + JavaScript)</h1>
+    <p>Interactive examples demonstrating if/else, switch, loops, ternary, break/continue and simple form validation.</p>
+
+    <section id="validation">
+        <h2>1) Simple Form Validation (if / else)</h2>
+        <form id="loginForm" onsubmit="return validateForm(event)">
+            <label>Username: <input id="username" type="text" /></label>
+            <label>Password: <input id="password" type="password" /></label>
+            <label>Phone: <input id="phone" type="text" placeholder="10 digits" /></label>
+            <div class="row">
+                <button type="submit">Validate</button>
+                <button type="button" onclick="clearValidation()">Clear</button>
+            </div>
+        </form>
+        <div id="validationOut" class="out"></div>
+    </section>
+
+    <section id="conditional">
+        <h2>2) if / else if / else, ternary</h2>
+        <label>Enter score (0-100): <input id="score" type="number" min="0" max="100" /></label>
+        <div class="row">
+            <button onclick="gradeScore()">Get Grade</button>
+            <button onclick="showTernary()">Ternary Example</button>
+        </div>
+        <div id="scoreOut" class="out"></div>
+    </section>
+
+    <section id="switchSection">
+        <h2>3) switch</h2>
+        <label>Pick a day:
+            <select id="daySelect">
+                <option value="">--pick--</option>
+                <option value="1">Mon</option>
+                <option value="2">Tue</option>
+                <option value="3">Wed</option>
+                <option value="4">Thu</option>
+                <option value="5">Fri</option>
+                <option value="6">Sat</option>
+                <option value="7">Sun</option>
+            </select>
+        </label>
+        <button onclick="showDay()">Show</button>
+        <div id="switchOut" class="out"></div>
+    </section>
+
+    <section id="loops">
+        <h2>4) Loops (for, while, do-while, break/continue)</h2>
+        <div class="row">
+            <button onclick="demoFor()">For loop</button>
+            <button onclick="demoWhile()">While loop</button>
+            <button onclick="demoDoWhile()">Do-while</button>
+            <button onclick="demoBreakContinue()">Break / Continue</button>
+        </div>
+        <div id="loopOut" class="out"></div>
+    </section>
+
+    <section id="arrayDemo">
+        <h2>5) Array iteration (forEach, map, filter)</h2>
+        <div class="row">
+            <button onclick="demoArray()">Run array demo</button>
+        </div>
+        <div id="arrayOut" class="out"></div>
+    </section>
+
+    <script>
+        // 1) Form validation using if/else and simple checks
+        function validateForm(e) {
+            e && e.preventDefault();
+            const ux = document.getElementById('username').value.trim();
+            const pw = document.getElementById('password').value;
+            const phone = document.getElementById('phone').value.replace(/\D/g, '');
+            const out = document.getElementById('validationOut');
+
+            if (!ux) {
+                out.textContent = 'Username is required.';
+                return false;
+            }
+            if (pw.length < 6) {
+                out.textContent = 'Password must be at least 6 characters.';
+                return false;
+            }
+            // nested if example
+            if (phone.length === 0) {
+                out.textContent = 'Phone number missing.';
+                return false;
+            } else if (phone.length !== 10) {
+                out.textContent = 'Phone number must be 10 digits.';
+                return false;
+            } else {
+                out.textContent = `Validation passed for ${ux} (phone: ${phone}).`;
+            }
+            return false; // prevent navigation in demo
+        }
+        function clearValidation(){
+            document.getElementById('loginForm').reset();
+            document.getElementById('validationOut').textContent = '';
+        }
+
+        // 2) if / else if / else + ternary
+        function gradeScore() {
+            const s = Number(document.getElementById('score').value);
+            const out = document.getElementById('scoreOut');
+            if (Number.isNaN(s) || s < 0 || s > 100) {
+                out.textContent = 'Enter a valid score between 0 and 100.';
+                return;
+            }
+            // chain of conditions
+            let grade;
+            if (s >= 90) grade = 'A';
+            else if (s >= 80) grade = 'B';
+            else if (s >= 70) grade = 'C';
+            else if (s >= 60) grade = 'D';
+            else grade = 'F';
+            out.textContent = `Score: ${s} → Grade: ${grade}`;
+        }
+        function showTernary() {
+            const s = Number(document.getElementById('score').value);
+            const out = document.getElementById('scoreOut');
+            const result = (Number.isFinite(s) && s >= 0 && s <= 100)
+                ? (s >= 50 ? 'Pass' : 'Fail')  // ternary operator
+                : 'Invalid score';
+            out.textContent = `Ternary result: ${result}`;
+        }
+
+        // 3) switch example
+        function showDay() {
+            const val = document.getElementById('daySelect').value;
+            const out = document.getElementById('switchOut');
+            let message;
+            switch (val) {
+                case '1': message = 'Monday — start productive week.'; break;
+                case '2': message = 'Tuesday — keep going.'; break;
+                case '3': message = 'Wednesday — midweek.'; break;
+                case '4': message = 'Thursday — almost there.'; break;
+                case '5': message = 'Friday — weekend incoming!'; break;
+                case '6':
+                case '7': message = 'Weekend — relax!'; break; // fall-through example
+                default: message = 'Select a day.'; break;
+            }
+            out.textContent = message;
+        }
+
+        // 4) loops
+        function demoFor() {
+            const out = [];
+            for (let i = 1; i <= 5; i++) {
+                out.push(`for: ${i}`);
+            }
+            document.getElementById('loopOut').textContent = out.join('\n');
+        }
+        function demoWhile() {
+            let i = 1;
+            const out = [];
+            while (i <= 5) {
+                out.push(`while: ${i}`);
+                i++;
+            }
+            document.getElementById('loopOut').textContent = out.join('\n');
+        }
+        function demoDoWhile() {
+            let i = 1;
+            const out = [];
+            do {
+                out.push(`do-while: ${i}`);
+                i++;
+            } while (i <= 5);
+            document.getElementById('loopOut').textContent = out.join('\n');
+        }
+        function demoBreakContinue() {
+            const out = [];
+            for (let i = 1; i <= 10; i++) {
+                if (i === 8) break;           // stops loop early
+                if (i % 2 === 0) continue;   // skip even numbers
+                out.push(`odd before break: ${i}`);
+            }
+            document.getElementById('loopOut').textContent = out.join('\n');
+        }
+
+        // 5) array methods: forEach, map, filter
+        function demoArray() {
+            const nums = [3, 7, 12, 19, 24];
+            let text = 'Original: ' + JSON.stringify(nums) + '\n\n';
+
+            // forEach
+            const squares = [];
+            nums.forEach(n => squares.push(n * n));
+            text += 'forEach (squares): ' + JSON.stringify(squares) + '\n';
+
+            // map
+            const doubled = nums.map(n => n * 2);
+            text += 'map (doubled): ' + JSON.stringify(doubled) + '\n';
+
+            // filter
+            const even = nums.filter(n => n % 2 === 0);
+            text += 'filter (even): ' + JSON.stringify(even) + '\n';
+
+            // chained: filter + map
+            const bigDoubled = nums.filter(n => n > 10).map(n => n * 2);
+            text += 'filter>10 then map *2: ' + JSON.stringify(bigDoubled);
+
+            document.getElementById('arrayOut').textContent = text;
+        }
+
+        // Small examples executed on load to show usage (not required)
+        // console.log('Control structures demo loaded.');
+    </script>
+</body>
+</html>
