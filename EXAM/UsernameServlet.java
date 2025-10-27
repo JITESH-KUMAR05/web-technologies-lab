@@ -114,7 +114,6 @@ public class LoginServlet extends HttpServlet {
 
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app>
-    
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>LoginServlet</servlet-class>
