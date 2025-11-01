@@ -64,9 +64,9 @@ public class DemoServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         
-        // Get parameters from request
         String name = request.getParameter("name");
         String email = request.getParameter("email");
+        // Get parameters from request
         
         // Generate response
         out.println("<html>");
